@@ -1,0 +1,66 @@
+{
+  "get": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Return the list of entities",
+    "description": "Return the list of entities",
+    "operationId": "entities",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/simpleEntity"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Create a new Entity",
+    "description": "Create a new Entity",
+    "operationId": "createEntity",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "Entity",
+        "description": "New Entity in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/simpleEntity"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/entity"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

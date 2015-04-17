@@ -1,0 +1,25 @@
+
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "SocioCortex REST API",
+    "version": "0.1.0",
+    "title": "SocioCortex REST API",
+    "contact": {
+      "name": "SC API support",
+      "email": "sociocortex.sebis@tum.de"
+    }
+  },
+  "host": "vmmatthes21.informatik.tu-muenchen.de",
+  "basePath": "/api/0.1",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+
+  },
+  "definitions":{
+
+  }
+}

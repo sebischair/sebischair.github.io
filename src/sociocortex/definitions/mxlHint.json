@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "helpHeader": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "addOpeningBracket": {
+      "type": "boolean"
+    },
+    "addApostrophes": {
+      "type": "boolean"
+    }
+  }
+}

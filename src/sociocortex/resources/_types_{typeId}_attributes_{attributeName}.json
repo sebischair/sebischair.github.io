@@ -1,0 +1,158 @@
+{
+  "get": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Get an attribute in the Type",
+    "description": "Get an attribute in the Type",
+    "operationId": "getTypeAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "typeId",
+        "description": "ID of the type that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "attributeName",
+        "description": "Name of the attribute of the type that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Type Attribute",
+        "description": "Updated Type Attribute in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/typeAttribute"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/typeAttribute"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Update an attribute in the Type",
+    "description": "Update an attribute in the Type",
+    "operationId": "updateTypeAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "typeId",
+        "description": "ID of the type that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "attributeName",
+        "description": "Name of the attribute of the type that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Type Attribute",
+        "description": "Updated Type Attribute in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/typeAttribute"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/typeAttribute"
+        }
+      },
+      "400": {
+        "description": "Invalid ID or attributeName supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type or Attribute not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Delete an attribute in the Type",
+    "description": "Delete an  attribute in the Type",
+    "operationId": "deleteTypeAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "typeId",
+        "description": "ID of the type that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "attributeName",
+        "description": "Name of the attribute of the type that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid ID or attributeName supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type or Attribute not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

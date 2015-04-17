@@ -1,0 +1,113 @@
+{
+  "get": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Return the list of principals for the Entity's role",
+    "description": "Return the list of principals for the Entity's role",
+    "operationId": "rolePrincipals",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "entityId",
+        "description": "ID of the entity that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "roleName",
+        "description": "Name of the Entity's role",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/link"
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid ID or roleName supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity or roleName not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Add a new principal to Entity's role permissions",
+    "description": "Add a new principal to Entity's role permissions",
+    "operationId": "addRolePrincipals",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "entityId",
+        "description": "ID of the entity that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "roleName",
+        "description": "Name of the Entity's role to be modified",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Principal",
+        "description": "Principal to be added to the Entity's role in JSON",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "uid": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/entity"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

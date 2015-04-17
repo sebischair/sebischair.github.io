@@ -1,0 +1,53 @@
+{
+  "delete": {
+    "tags": [
+      "workspace"
+    ],
+    "summary": "Remove a principal to Workspace's role permissions",
+    "description": "Remove a  principal to Workspace's role permissions",
+    "operationId": "removeRolePrincipals",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "workspaceId",
+        "description": "ID of the workspace that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "roleName",
+        "description": "Name of the Workspace's role",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "principalId",
+        "description": "ID of principal to remove from the Workspace's role",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid ID, roleName or principalId supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Invalid ID, roleName or principalId not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

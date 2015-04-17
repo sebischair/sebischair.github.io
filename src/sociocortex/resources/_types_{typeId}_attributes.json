@@ -1,0 +1,97 @@
+{
+  "get": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Return all the attributes with Type",
+    "description": "Return all the attributes with Type",
+    "operationId": "typeAttributes",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "typeId",
+        "description": "ID of the type that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/typeAttribute"
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Create a new attribute in the Type",
+    "description": "Create a new attribute in the Type",
+    "operationId": "newTypeAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "typeId",
+        "description": "ID of the type that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Type Attribute",
+        "description": "Updated Type Attribute in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/typeAttribute"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/typeAttribute"
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "user": {
+      "$ref": "#/definitions/link"
+    },
+    "action": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

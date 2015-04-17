@@ -1,0 +1,66 @@
+{
+  "get": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Return the list of types",
+    "description": "Return the list of types",
+    "operationId": "types",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/type"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Create a new Type",
+    "description": "Create a new Type",
+    "operationId": "createType",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "Type",
+        "description": "New Type in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/simpleType"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/simpleType"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

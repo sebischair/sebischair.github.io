@@ -1,0 +1,66 @@
+{
+  "get": {
+    "tags": [
+      "workspace"
+    ],
+    "summary": "Return the list of workspaces",
+    "description": "Return the list of workspaces",
+    "operationId": "workspaces",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/simpleWorkspace"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "workspace"
+    ],
+    "summary": "Create a new Workspace",
+    "description": "Create a new Workspace",
+    "operationId": "createWorkspace",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "Workspace",
+        "description": "New Workspace in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/simpleWorkspace"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/simpleWorkspace"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Workspace not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "get": {
+    "tags": [
+      "group"
+    ],
+    "summary": "Get a Member to the Group with ID",
+    "description": "Get a Member to the Group with ID",
+    "operationId": "getGroupMember",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "groupId",
+        "description": "ID of the group that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "memberId",
+        "description": "Id of the member of the group that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/member"
+        }
+      },
+      "400": {
+        "description": "Invalid ID or member ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "ID or member ID not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "group"
+    ],
+    "summary": "Update a Member to the Group with ID",
+    "description": "Update a Member to the Group with ID",
+    "operationId": "updateGroupMember",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "groupId",
+        "description": "ID of the group that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "memberId",
+        "description": "Id of the member of the group that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Member",
+        "description": "Member updated of the group that is fetched in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/member"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/group"
+        }
+      },
+      "400": {
+        "description": "Invalid ID or member ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "ID or member ID not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "group"
+    ],
+    "summary": "Delete a Member to the Group with ID",
+    "description": "Delete a Member to the Group with ID",
+    "operationId": "deleteGroupMember",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "groupId",
+        "description": "ID of the group that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "memberId",
+        "description": "Id of the member of the group that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid ID or member ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "ID or member ID not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

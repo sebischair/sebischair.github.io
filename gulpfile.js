@@ -13,6 +13,7 @@ var declare = require('gulp-declare');
 var watch = require('gulp-watch');
 var connect = require('gulp-connect');
 var header = require('gulp-header');
+var jsoncombine = require("gulp-jsoncombine");
 var pkg = require('./package.json');
 var order = require('gulp-order');
 var banner = ['/**',
@@ -107,13 +108,53 @@ gulp.task('copy', ['less'], function() {
     .src(['./src/main/html/**/*'])
     .pipe(gulp.dest('./dist'))
     .on('error', log);
+
+  // copy all the json files inside sociocortex folder
+
+   // adding resources
+  gulp
+      .src('./src/sociocortex/resources/*.json')
+      .pipe(jsoncombine("sc-api-swagger.json",function(data){
+        // do any work on data here
+
+        //convert the files names in paths (change _ for /)
+        var resourcePaths = {};
+        Object.getOwnPropertyNames(data).forEach(function(val, idx, array) {
+          var key = val.replace(/_/g,'/');
+          resourcePaths[key] = data[val];
+
+        });
+
+        var main = require("./src/sociocortex/main.json");
+        main.paths = resourcePaths;
+
+        return new Buffer(JSON.stringify(main, null, 4));
+      }))
+      .pipe(gulp.dest('./dist/sociocortex'))
+      .on('error', log);
+
+  // adding definitions
+  gulp
+      .src('./src/sociocortex/definitions/*.json')
+      .pipe(jsoncombine("sc-api-swagger.json",function(data){
+        // do any work on data here
+
+        var main = require("./src/sociocortex/main.json");
+        main.definitions = data;
+
+        return new Buffer(JSON.stringify(main));
+      }))
+      .pipe(gulp.dest('./dist/sociocortex'))
+      .on('error', log);
+
+
 });
 
 /**
  * Watch for changes and recompile
  */
 gulp.task('watch', function() {
-  return watch(['./src/**/*.{js,less,handlebars}'], function() {
+  return watch(['./src/**/*.{js,less,handlebars,json}'], function() {
     gulp.start('default');
   });
 });

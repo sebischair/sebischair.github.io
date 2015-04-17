@@ -1,0 +1,149 @@
+{
+  "get": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Get the Entity attribute by attribute Name",
+    "description": "Get the Entity attribute by attribute Name",
+    "operationId": "getAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "entityId",
+        "description": "ID of the entity that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "attributeName",
+        "description": "Name of the Entity's attribute to be modified",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/attribute"
+        }
+      },
+      "400": {
+        "description": "Invalid ID or Attribute Name supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity or Attribute not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Modify the Entity attribute by attribute Name",
+    "description": "Modify the Entity attribute by attribute Name",
+    "operationId": "updateAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "entityId",
+        "description": "ID of the entity that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "attributeName",
+        "description": "Name of the Entity's attribute to be modified",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Entity attribute",
+        "description": "Entity Attribute in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/attribute"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/attribute"
+        }
+      },
+      "400": {
+        "description": "Invalid ID or Attribute Name supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity or Attribute not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Delete the Entity attribute by attribute Name",
+    "description": "Delete the Entity attribute by attribute Name",
+    "operationId": "deleteAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "entityId",
+        "description": "ID of the entity that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "attributeName",
+        "description": "Name of the Entity's attribute to be modified",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid ID or Attribute Name supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity or Attribute not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

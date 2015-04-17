@@ -1,0 +1,164 @@
+{
+  "get": {
+    "tags": [
+      "group"
+    ],
+    "summary": "Get an Group by ID",
+    "description": "Get an Group by ID",
+    "operationId": "getGroup",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "groupId",
+        "description": "ID of the group that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/group"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        },
+        "examples": {
+          "application/json": {
+            "status_code": 400,
+            "detail": "Invalid ID supplied"
+          }
+        }
+      },
+      "404": {
+        "description": "Group not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        },
+        "examples": {
+          "application/json": {
+            "status_code": 404,
+            "detail": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "group"
+    ],
+    "summary": "Update an Group by ID",
+    "description": "Update an Group by ID",
+    "operationId": "updateGroup",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "groupId",
+        "description": "ID of the group that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Group",
+        "description": "Updated Group in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/simpleGroup"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/simpleGroup"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        },
+        "examples": {
+          "application/json": {
+            "status_code": 400,
+            "detail": "Invalid ID supplied"
+          }
+        }
+      },
+      "404": {
+        "description": "Group not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        },
+        "examples": {
+          "application/json": {
+            "status_code": 404,
+            "detail": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "group"
+    ],
+    "summary": "Delete an Group by ID",
+    "description": "Delete an Group by ID",
+    "operationId": "deleteGroup",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "groupId",
+        "description": "ID of the group that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        },
+        "examples": {
+          "application/json": {
+            "status_code": 400,
+            "detail": "Invalid ID supplied"
+          }
+        }
+      },
+      "404": {
+        "description": "Group not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        },
+        "examples": {
+          "application/json": {
+            "status_code": 404,
+            "detail": "Not Found"
+          }
+        }
+      }
+    }
+  }
+}

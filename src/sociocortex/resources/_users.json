@@ -1,0 +1,66 @@
+{
+  "get": {
+    "tags": [
+      "user"
+    ],
+    "summary": "Return the list of users",
+    "description": "Return the list of users",
+    "operationId": "users",
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/user"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "user"
+    ],
+    "summary": "Create a new User",
+    "description": "Create a new User",
+    "operationId": "createUser",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "User",
+        "description": "New User in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/simpleUser"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/user"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "User not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

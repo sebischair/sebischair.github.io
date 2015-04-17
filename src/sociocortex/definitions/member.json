@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "user": {
+      "$ref": "#/definitions/link"
+    },
+    "state": {
+      "type": "string"
+    },
+    "expiryDate": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

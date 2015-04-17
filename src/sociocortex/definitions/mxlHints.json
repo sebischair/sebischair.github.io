@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "properties": {
+    "staticFunctions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    },
+    "memberFunctions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    },
+    "globalIdentifiers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    },
+    "basicTypes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    },
+    "customTypes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    },
+    "workspaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    },
+    "builtinAttributes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mxlHint"
+      }
+    }
+  }
+}

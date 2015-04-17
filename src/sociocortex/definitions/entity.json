@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "uid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parentEntity": {
+      "$ref": "#/definitions/link"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/permission"
+      }
+    },
+    "changeset": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/change"
+      }
+    },
+    "type": {
+      "$ref": "#/definitions/link"
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/attribute"
+      }
+    },
+    "subEntitiesAndFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/link"
+      }
+    }
+  }
+}

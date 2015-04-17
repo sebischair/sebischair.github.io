@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string"
+    },
+    "principals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/link"
+      }
+    }
+  }
+}

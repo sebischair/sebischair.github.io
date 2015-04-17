@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "expression": {
+      "type": "string"
+    },
+    "expressionType": {
+      "type": "string"
+    },
+    "parameterDefinitions": {
+      "type": "string"
+    }
+  }
+}

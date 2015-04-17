@@ -1,0 +1,94 @@
+{
+  "get": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Return a list of  Entity attributes",
+    "description": "Return a list of  Entity attributes",
+    "operationId": "attributes",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "entityId",
+        "description": "ID of the entity that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attribute"
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "entity"
+    ],
+    "summary": "Add a new  Entity attribute",
+    "description": "Add a new Entity attribute",
+    "operationId": "newAttribute",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "entityId",
+        "description": "ID of the entity that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Entity Attribute",
+        "description": "Entity Attribute in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/attribute"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/entity"
+        }
+      },
+      "400": {
+        "description": "Invalid ID or Attribute Name supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Entity or Attribute not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

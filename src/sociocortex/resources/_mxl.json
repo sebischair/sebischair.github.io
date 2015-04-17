@@ -1,0 +1,86 @@
+{
+  "get": {
+    "tags": [
+      "mxl"
+    ],
+    "summary": "Applies the specified MxL method without a context",
+    "description": "Applies the specified MxL method without a context",
+    "operationId": "getMxl",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "method",
+        "description": "The MxL method you want to apply. For a GET request, the only viable option is 'autoComplete'",
+        "required": true,
+        "type": "string",
+        "enum": [
+          "autoComplete"
+        ]
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/mxlHints"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "mxl"
+    ],
+    "summary": "Applies the specified MxL method without a context",
+    "description": "Applies the specified MxL method without a context",
+    "operationId": "postMxl",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "method",
+        "description": "The MxL method you want to apply. For a POST request, the only viable options are 'query' and 'validate'",
+        "required": true,
+        "type": "string",
+        "enum": [
+          "query",
+          "validate"
+        ]
+      },
+      {
+        "in": "body",
+        "name": "mxlBody",
+        "description": "The standard body for MxL requests is a JSON object which can contain the attributes 'expression', 'parameterDefinitions', and 'expressionType'",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/mxlBody"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/mxlResponse"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

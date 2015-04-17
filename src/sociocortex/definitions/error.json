@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "status_code": {
+      "type": "number"
+    },
+    "detail": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {},
+    "type": {
+      "type": "object"
+    },
+    "expression": {
+      "type": "object"
+    }
+  }
+}
