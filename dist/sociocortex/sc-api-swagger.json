@@ -5,8 +5,8 @@
         "version": "0.1.0",
         "title": "SocioCortex REST API",
         "contact": {
-            "name": "SC API issue tracker",
-            "href": "https://bitbucket.org/sebischair/sociocortex/issues?status=new&status=open"
+            "name": "SC API support",
+            "email": "sociocortex.sebis@tum.de"
         }
     },
     "host": "vmmatthes21.informatik.tu-muenchen.de",
