@@ -13,8 +13,16 @@
     "options": {
       "type": "object"
     },
-    "helpEditors": {
+    "description": {
       "type": "string"
+    },
+    "readOnly": {
+      "type": "string"
+    },
+    "defaultValues": {
+      "type": "array",
+      "items": {}
     }
-  }
+  },
+  "required": [ "name"]
 }

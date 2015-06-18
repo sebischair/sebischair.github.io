@@ -16,22 +16,22 @@
         "https"
     ],
     "paths": {
-        "/users/{userId}/picture": {
+        "/types/{typeId}/attributes": {
             "get": {
                 "tags": [
-                    "user"
+                    "type"
                 ],
-                "summary": "Get the profile picture of the User by ID",
-                "description": "Get the profile picture of the User by ID",
-                "operationId": "getUserPicture",
+                "summary": "Return all the attributes with Type",
+                "description": "Return all the attributes with Type",
+                "operationId": "typeAttributes",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "userId",
-                        "description": "ID of the user that is fetched",
+                        "name": "typeId",
+                        "description": "ID of the type that is fetched",
                         "required": true,
                         "type": "string"
                     }
@@ -40,7 +40,10 @@
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/link"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/typeAttribute"
+                            }
                         }
                     },
                     "400": {
@@ -50,7 +53,7 @@
                         }
                     },
                     "404": {
-                        "description": "User not found",
+                        "description": "Type not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
@@ -59,31 +62,259 @@
             },
             "post": {
                 "tags": [
-                    "user"
+                    "type"
                 ],
-                "summary": "Update the profile picture of the User by ID",
-                "description": "Update the profile picture of the User by ID",
-                "operationId": "updateUserPicture",
+                "summary": "Create a new attribute in the Type",
+                "description": "Create a new attribute in the Type",
+                "operationId": "newTypeAttribute",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "userId",
-                        "description": "ID of the user that is fetched",
+                        "name": "typeId",
+                        "description": "ID of the type that is fetched",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "in": "body",
-                        "name": "Picture",
-                        "description": "Link to profile picture of the user that is fetched",
+                        "name": "Type Attribute",
+                        "description": "Updated Type Attribute in JSON",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/link"
+                            "$ref": "#/definitions/typeAttribute"
                         }
                     }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/typeAttribute"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Type not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/entities/{entityId}/mxl": {
+            "get": {
+                "tags": [
+                    "entity",
+                    "mxl"
+                ],
+                "summary": "Applies the specified MxL method to the given entity",
+                "description": "Applies the specified MxL method to the given entity",
+                "operationId": "entityGetMxl",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "entityId",
+                        "description": "ID of the entity in which the MxL method has to be applied",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "method",
+                        "description": "The MxL method you want to apply. For a GET request, the only viable option is 'autoComplete'",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "autoComplete"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/mxlHints"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "entity",
+                    "mxl"
+                ],
+                "summary": "Applies the specified MxL method to the given entity",
+                "description": "Applies the specified MxL method to the given entity",
+                "operationId": "entityPostMxl",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "entityId",
+                        "description": "ID of the entity in which the MxL method has to be applied",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "method",
+                        "description": "The MxL method you want to apply. For a POST request, the only viable options are 'query' and 'validate'",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "query",
+                            "validate"
+                        ]
+                    },
+                    {
+                        "in": "body",
+                        "name": "mxlBody",
+                        "description": "The standard body for MxL requests is a JSON object which can contain the attributes 'expression', 'parameterDefinitions', and 'expressionType'",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mxlBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/mxlResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/groups": {
+            "get": {
+                "tags": [
+                    "group"
+                ],
+                "summary": "Return the list of groups",
+                "description": "Return the list of groups",
+                "operationId": "groups",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/group"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "summary": "Create a new Group",
+                "description": "Create a new Group",
+                "operationId": "createGroup",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Group",
+                        "description": "New Group in JSON",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "status_code": 400,
+                                "detail": "Invalid ID supplied"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Group not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "status_code": 404,
+                                "detail": "Not Found"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/me": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Gets the current User",
+                "description": "Gets the current User",
+                "operationId": "me",
+                "produces": [
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -107,26 +338,16 @@
                 }
             }
         },
-        "/workspaces/{workspaceId}/types": {
+        "/types": {
             "get": {
                 "tags": [
-                    "workspace",
                     "type"
                 ],
-                "summary": "Return all the types in the Workspace",
-                "description": "Return all the types in the Workspace",
-                "operationId": "workspaceTypes",
+                "summary": "Return the list of types",
+                "description": "Return the list of types",
+                "operationId": "types",
                 "produces": [
                     "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "200": {
@@ -137,94 +358,73 @@
                                 "$ref": "#/definitions/link"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Workspace not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
                     }
                 }
-            }
-        },
-        "/types/{typeId}/entities": {
-            "get": {
+            },
+            "post": {
                 "tags": [
                     "type"
                 ],
-                "summary": "Return all the entities with Type",
-                "description": "Return all the entities with Type",
-                "operationId": "typeEntities",
+                "summary": "Create a new Type",
+                "description": "Create a new Type",
+                "operationId": "createType",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
+                        "in": "body",
+                        "name": "Type",
+                        "description": "New Type in JSON",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "$ref": "#/definitions/type"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/link"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Type not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/types/{typeId}": {
-            "get": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Get a Type by ID",
-                "description": "Get an Type by ID",
-                "operationId": "getType",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
+                        "description": "Successful create a Type",
                         "schema": {
                             "$ref": "#/definitions/type"
                         }
                     },
+                    "405": {
+                        "description": "Invalid input supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/entities/{entityId}": {
+            "get": {
+                "tags": [
+                    "entity"
+                ],
+                "summary": "Get an Entity by ID",
+                "description": "Get an Entity by ID",
+                "operationId": "getEntity",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "entityId",
+                        "description": "ID of the entity that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/entity"
+                        }
+                    },
                     "400": {
                         "description": "Invalid ID supplied",
                         "schema": {
@@ -232,38 +432,38 @@
                         }
                     },
                     "404": {
-                        "description": "Type not found",
+                        "description": "Entity not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
                     }
                 }
             },
-            "put": {
+            "post": {
                 "tags": [
-                    "type"
+                    "entity"
                 ],
-                "summary": "Update an Type by ID",
-                "description": "Update an Type by ID",
-                "operationId": "updateType",
+                "summary": "Update an Entity by ID",
+                "description": "Update an Entity by ID",
+                "operationId": "updateEntity",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
+                        "name": "entityId",
+                        "description": "ID of the entity that is fetched",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "in": "body",
-                        "name": "Type",
-                        "description": "Updated Type in JSON",
+                        "name": "Entity",
+                        "description": "Updated Entity in JSON",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/type"
+                            "$ref": "#/definitions/entity"
                         }
                     }
                 ],
@@ -271,7 +471,7 @@
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/type"
+                            "$ref": "#/definitions/entity"
                         }
                     },
                     "400": {
@@ -281,7 +481,7 @@
                         }
                     },
                     "404": {
-                        "description": "Type not found",
+                        "description": "Entity not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
@@ -290,19 +490,19 @@
             },
             "delete": {
                 "tags": [
-                    "type"
+                    "entity"
                 ],
-                "summary": "Delete an Type by ID",
-                "description": "Delete an Type by ID",
-                "operationId": "deleteType",
+                "summary": "Delete an Entity by ID",
+                "description": "Delete an Entity by ID",
+                "operationId": "deleteEntity",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
+                        "name": "entityId",
+                        "description": "ID of the entity that is fetched",
                         "required": true,
                         "type": "string"
                     }
@@ -318,7 +518,7 @@
                         }
                     },
                     "404": {
-                        "description": "Type not found",
+                        "description": "Entity not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
@@ -490,55 +690,34 @@
                 }
             }
         },
-        "/entities": {
+        "/workspaces/{workspaceId}/entities": {
             "get": {
                 "tags": [
-                    "entity"
+                    "workspace"
                 ],
-                "summary": "Return the list of entities",
-                "description": "Return the list of entities",
-                "operationId": "entities",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/entity"
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "entity"
-                ],
-                "summary": "Create a new Entity",
-                "description": "Create a new Entity",
-                "operationId": "createEntity",
+                "summary": "Return all the entities in the Workspace",
+                "description": "Return all the entities in the Workspace",
+                "operationId": "workspaceEntities",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "Entity",
-                        "description": "New Entity in JSON",
+                        "in": "path",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace that is fetched",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/entity"
-                        }
+                        "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/entity"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/link"
+                            }
                         }
                     },
                     "400": {
@@ -548,7 +727,7 @@
                         }
                     },
                     "404": {
-                        "description": "Entity not found",
+                        "description": "Workspace not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
@@ -653,6 +832,644 @@
                         "schema": {
                             "$ref": "#/definitions/workspace"
                         }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Workspace not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/types/{typeId}": {
+            "get": {
+                "tags": [
+                    "type"
+                ],
+                "summary": "Get a Type by ID",
+                "description": "Get an Type by ID",
+                "operationId": "getType",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "typeId",
+                        "description": "ID of the type that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/type"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Type not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "type"
+                ],
+                "summary": "Update an Type by ID",
+                "description": "Update an Type by ID",
+                "operationId": "updateType",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "typeId",
+                        "description": "ID of the type that is fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "Type",
+                        "description": "Updated Type in JSON",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/type"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/type"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Type not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "type"
+                ],
+                "summary": "Delete an Type by ID",
+                "description": "Delete an Type by ID",
+                "operationId": "deleteType",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "typeId",
+                        "description": "ID of the type that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Type not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{groupId}/members": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "summary": "Add a new Member to the Group with ID",
+                "description": "Add a new Member to the Group with ID",
+                "operationId": "addGroupMember",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupId",
+                        "description": "ID of the group that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Group not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspaceId}/mxl": {
+            "get": {
+                "tags": [
+                    "workspace",
+                    "mxl"
+                ],
+                "summary": "Applies the specified MxL method to the given workspace",
+                "description": "Applies the specified MxL method to the given workspace",
+                "operationId": "workspaceGetMxl",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace in which the MxL method has to be applied",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "method",
+                        "description": "The MxL method you want to apply. For a GET request, the only viable option is 'autoComplete'",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "autoComplete"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/mxlHints"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Workspace not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "workspace",
+                    "mxl"
+                ],
+                "summary": "Applies the specified MxL method to the given workspace",
+                "description": "Applies the specified MxL method to the given workspace",
+                "operationId": "workspacePostMxl",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace in which the MxL method has to be applied",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "method",
+                        "description": "The MxL method you want to apply. For a POST request, the only viable options are 'query' and 'validate'",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "query",
+                            "validate"
+                        ]
+                    },
+                    {
+                        "in": "body",
+                        "name": "mxlBody",
+                        "description": "The standard body for MxL requests is a JSON object which can contain the attributes 'expression', 'parameterDefinitions', and 'expressionType'",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mxlBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/mxlResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Workspace not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Return the list of users",
+                "description": "Return the list of users",
+                "operationId": "users",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/user"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Create a new User",
+                "description": "Create a new User",
+                "operationId": "createUser",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "User",
+                        "description": "New User in JSON",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspaceId}/types": {
+            "get": {
+                "tags": [
+                    "workspace",
+                    "type"
+                ],
+                "summary": "Return all the types in the Workspace",
+                "description": "Return all the types in the Workspace",
+                "operationId": "workspaceTypes",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/link"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Workspace not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/types/{typeId}/mxl": {
+            "get": {
+                "tags": [
+                    "type",
+                    "mxl"
+                ],
+                "summary": "Applies the specified MxL method to the given type",
+                "description": "Applies the specified MxL method to the given type",
+                "operationId": "typeGetMxl",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "typeId",
+                        "description": "ID of the type in which the MxL method has to be applied",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "method",
+                        "description": "The MxL method you want to apply. For a GET request, the only viable option is 'autoComplete'",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "autoComplete"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/mxlHints"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Type not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "type",
+                    "mxl"
+                ],
+                "summary": "Applies the specified MxL method to the given type",
+                "description": "Applies the specified MxL method to the given type",
+                "operationId": "typePostMxl",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "typeId",
+                        "description": "ID of the type in which the MxL method has to be applied",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "method",
+                        "description": "The MxL method you want to apply. For a POST request, the only viable options are 'query' and 'validate'",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "query",
+                            "validate"
+                        ]
+                    },
+                    {
+                        "in": "body",
+                        "name": "mxlBody",
+                        "description": "The standard body for MxL requests is a JSON object which can contain the attributes 'expression', 'parameterDefinitions', and 'expressionType'",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mxlBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/mxlResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Type not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspaceId}": {
+            "get": {
+                "tags": [
+                    "workspace"
+                ],
+                "summary": "Get an Workspace by ID",
+                "description": "Get an Workspace by ID",
+                "operationId": "getWorkspace",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/workspace"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Workspace not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "workspace"
+                ],
+                "summary": "Update an Workspace by ID",
+                "description": "Update an Workspace by ID",
+                "operationId": "updateWorkspace",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace that is fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "Workspace",
+                        "description": "Updated Workspace in JSON",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/workspace"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/workspace"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Workspace not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "workspace"
+                ],
+                "summary": "Delete an Workspace by ID",
+                "description": "Delete an Workspace by ID",
+                "operationId": "deleteWorkspace",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
                     },
                     "400": {
                         "description": "Invalid ID supplied",
@@ -782,65 +1599,52 @@
                 }
             }
         },
-        "/workspaces": {
-            "get": {
+        "/entities/{entityId}/permissions/{roleName}/principals/{principalId}": {
+            "delete": {
                 "tags": [
-                    "workspace"
+                    "entity"
                 ],
-                "summary": "Return the list of workspaces",
-                "description": "Return the list of workspaces",
-                "operationId": "workspaces",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/workspace"
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "workspace"
-                ],
-                "summary": "Create a new Workspace",
-                "description": "Create a new Workspace",
-                "operationId": "createWorkspace",
+                "summary": "Remove a principal to Entity's role permissions",
+                "description": "Remove a  principal to Entity's role permissions",
+                "operationId": "removeRolePrincipals",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "Workspace",
-                        "description": "New Workspace in JSON",
+                        "in": "path",
+                        "name": "entityId",
+                        "description": "ID of the entity that is fetched",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/workspace"
-                        }
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "roleName",
+                        "description": "Name of the Entity's role",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "principalId",
+                        "description": "ID of principal to remove from the Entity's role",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/workspace"
-                        }
+                        "description": "Successful operation"
                     },
                     "400": {
-                        "description": "Invalid ID supplied",
+                        "description": "Invalid ID, roleName or principalId supplied",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
                     },
                     "404": {
-                        "description": "Workspace not found",
+                        "description": "Invalid ID, roleName or principalId not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
@@ -848,15 +1652,14 @@
                 }
             }
         },
-        "/entities/{entityId}/mxl": {
+        "/entities/{entityId}/attributes": {
             "get": {
                 "tags": [
-                    "entity",
-                    "mxl"
+                    "entity"
                 ],
-                "summary": "Applies the specified MxL method to the given entity",
-                "description": "Applies the specified MxL method to the given entity",
-                "operationId": "entityGetMxl",
+                "summary": "Return a list of  Entity attributes",
+                "description": "Return a list of  Entity attributes",
+                "operationId": "attributes",
                 "produces": [
                     "application/json"
                 ],
@@ -864,26 +1667,19 @@
                     {
                         "in": "path",
                         "name": "entityId",
-                        "description": "ID of the entity in which the MxL method has to be applied",
+                        "description": "ID of the entity that is fetched",
                         "required": true,
                         "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "method",
-                        "description": "The MxL method you want to apply. For a GET request, the only viable option is 'autoComplete'",
-                        "required": true,
-                        "type": "string",
-                        "enum": [
-                            "autoComplete"
-                        ]
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/mxlHints"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/attribute"
+                            }
                         }
                     },
                     "400": {
@@ -902,12 +1698,11 @@
             },
             "post": {
                 "tags": [
-                    "entity",
-                    "mxl"
+                    "entity"
                 ],
-                "summary": "Applies the specified MxL method to the given entity",
-                "description": "Applies the specified MxL method to the given entity",
-                "operationId": "entityPostMxl",
+                "summary": "Add a new  Entity attribute",
+                "description": "Add a new Entity attribute",
+                "operationId": "newAttribute",
                 "produces": [
                     "application/json"
                 ],
@@ -915,28 +1710,17 @@
                     {
                         "in": "path",
                         "name": "entityId",
-                        "description": "ID of the entity in which the MxL method has to be applied",
+                        "description": "ID of the entity that is fetched",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "in": "query",
-                        "name": "method",
-                        "description": "The MxL method you want to apply. For a POST request, the only viable options are 'query' and 'validate'",
-                        "required": true,
-                        "type": "string",
-                        "enum": [
-                            "query",
-                            "validate"
-                        ]
-                    },
-                    {
                         "in": "body",
-                        "name": "mxlBody",
-                        "description": "The standard body for MxL requests is a JSON object which can contain the attributes 'expression', 'parameterDefinitions', and 'expressionType'",
+                        "name": "Entity Attribute",
+                        "description": "Entity Attribute in JSON",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/mxlBody"
+                            "$ref": "#/definitions/attribute"
                         }
                     }
                 ],
@@ -944,7 +1728,49 @@
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/mxlResponse"
+                            "$ref": "#/definitions/entity"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID or Attribute Name supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity or Attribute not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{userId}/picture": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get the profile picture of the User by ID",
+                "description": "Get the profile picture of the User by ID",
+                "operationId": "getUserPicture",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "description": "ID of the user that is fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/link"
                         }
                     },
                     "400": {
@@ -954,7 +1780,56 @@
                         }
                     },
                     "404": {
-                        "description": "Entity not found",
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update the profile picture of the User by ID",
+                "description": "Update the profile picture of the User by ID",
+                "operationId": "updateUserPicture",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "description": "ID of the user that is fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "Picture",
+                        "description": "Link to profile picture of the user that is fetched",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/link"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "schema": {
+                            "$ref": "#/definitions/error"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
@@ -1048,43 +1923,25 @@
                 }
             }
         },
-        "/entities/{entityId}": {
+        "/entities": {
             "get": {
                 "tags": [
                     "entity"
                 ],
-                "summary": "Get an Entity by ID",
-                "description": "Get an Entity by ID",
-                "operationId": "getEntity",
+                "summary": "Return the list of entities",
+                "description": "Return the list of entities",
+                "operationId": "entities",
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "entityId",
-                        "description": "ID of the entity that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "successful operation",
                         "schema": {
-                            "$ref": "#/definitions/entity"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Entity not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity"
+                            }
                         }
                     }
                 }
@@ -1093,24 +1950,17 @@
                 "tags": [
                     "entity"
                 ],
-                "summary": "Update an Entity by ID",
-                "description": "Update an Entity by ID",
-                "operationId": "updateEntity",
+                "summary": "Create a new Entity",
+                "description": "Create a new Entity",
+                "operationId": "createEntity",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "in": "path",
-                        "name": "entityId",
-                        "description": "ID of the entity that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
                         "in": "body",
                         "name": "Entity",
-                        "description": "Updated Entity in JSON",
+                        "description": "New Entity in JSON",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/entity"
@@ -1123,43 +1973,6 @@
                         "schema": {
                             "$ref": "#/definitions/entity"
                         }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Entity not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "entity"
-                ],
-                "summary": "Delete an Entity by ID",
-                "description": "Delete an Entity by ID",
-                "operationId": "deleteEntity",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "entityId",
-                        "description": "ID of the entity that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
                     },
                     "400": {
                         "description": "Invalid ID supplied",
@@ -1325,120 +2138,6 @@
                 }
             }
         },
-        "/types/{typeId}/mxl": {
-            "get": {
-                "tags": [
-                    "type",
-                    "mxl"
-                ],
-                "summary": "Applies the specified MxL method to the given type",
-                "description": "Applies the specified MxL method to the given type",
-                "operationId": "typeGetMxl",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type in which the MxL method has to be applied",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "method",
-                        "description": "The MxL method you want to apply. For a GET request, the only viable option is 'autoComplete'",
-                        "required": true,
-                        "type": "string",
-                        "enum": [
-                            "autoComplete"
-                        ]
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/mxlHints"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Type not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "type",
-                    "mxl"
-                ],
-                "summary": "Applies the specified MxL method to the given type",
-                "description": "Applies the specified MxL method to the given type",
-                "operationId": "typePostMxl",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type in which the MxL method has to be applied",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "method",
-                        "description": "The MxL method you want to apply. For a POST request, the only viable options are 'query' and 'validate'",
-                        "required": true,
-                        "type": "string",
-                        "enum": [
-                            "query",
-                            "validate"
-                        ]
-                    },
-                    {
-                        "in": "body",
-                        "name": "mxlBody",
-                        "description": "The standard body for MxL requests is a JSON object which can contain the attributes 'expression', 'parameterDefinitions', and 'expressionType'",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/mxlBody"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/mxlResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Type not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
         "/entities/{entityId}/attributes/{attributeName}": {
             "get": {
                 "tags": [
@@ -1588,136 +2287,22 @@
                 }
             }
         },
-        "/workspaces/{workspaceId}/mxl": {
+        "/types/{typeId}/entities": {
             "get": {
                 "tags": [
-                    "workspace",
-                    "mxl"
+                    "type"
                 ],
-                "summary": "Applies the specified MxL method to the given workspace",
-                "description": "Applies the specified MxL method to the given workspace",
-                "operationId": "workspaceGetMxl",
+                "summary": "Return all the entities with Type",
+                "description": "Return all the entities with Type",
+                "operationId": "typeEntities",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace in which the MxL method has to be applied",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "method",
-                        "description": "The MxL method you want to apply. For a GET request, the only viable option is 'autoComplete'",
-                        "required": true,
-                        "type": "string",
-                        "enum": [
-                            "autoComplete"
-                        ]
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/mxlHints"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Workspace not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "workspace",
-                    "mxl"
-                ],
-                "summary": "Applies the specified MxL method to the given workspace",
-                "description": "Applies the specified MxL method to the given workspace",
-                "operationId": "workspacePostMxl",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace in which the MxL method has to be applied",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "method",
-                        "description": "The MxL method you want to apply. For a POST request, the only viable options are 'query' and 'validate'",
-                        "required": true,
-                        "type": "string",
-                        "enum": [
-                            "query",
-                            "validate"
-                        ]
-                    },
-                    {
-                        "in": "body",
-                        "name": "mxlBody",
-                        "description": "The standard body for MxL requests is a JSON object which can contain the attributes 'expression', 'parameterDefinitions', and 'expressionType'",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/mxlBody"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/mxlResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Workspace not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/workspaces/{workspaceId}/entities": {
-            "get": {
-                "tags": [
-                    "workspace"
-                ],
-                "summary": "Return all the entities in the Workspace",
-                "description": "Return all the entities in the Workspace",
-                "operationId": "workspaceEntities",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace that is fetched",
+                        "name": "typeId",
+                        "description": "ID of the type that is fetched",
                         "required": true,
                         "type": "string"
                     }
@@ -1739,284 +2324,7 @@
                         }
                     },
                     "404": {
-                        "description": "Workspace not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/workspaces/{workspaceId}/permissions/{roleName}/principals/{principalId}": {
-            "delete": {
-                "tags": [
-                    "workspace"
-                ],
-                "summary": "Remove a principal to Workspace's role permissions",
-                "description": "Remove a  principal to Workspace's role permissions",
-                "operationId": "removeRolePrincipals",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "roleName",
-                        "description": "Name of the Workspace's role",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "principalId",
-                        "description": "ID of principal to remove from the Workspace's role",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Invalid ID, roleName or principalId supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Invalid ID, roleName or principalId not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/types/{typeId}/attributes": {
-            "get": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Return all the attributes with Type",
-                "description": "Return all the attributes with Type",
-                "operationId": "typeAttributes",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/typeAttribute"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
                         "description": "Type not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Create a new attribute in the Type",
-                "description": "Create a new attribute in the Type",
-                "operationId": "newTypeAttribute",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "Type Attribute",
-                        "description": "Updated Type Attribute in JSON",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/typeAttribute"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/typeAttribute"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Type not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/me": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Gets the current User",
-                "description": "Gets the current User",
-                "operationId": "me",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "User not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/entities/{entityId}/attributes": {
-            "get": {
-                "tags": [
-                    "entity"
-                ],
-                "summary": "Return a list of  Entity attributes",
-                "description": "Return a list of  Entity attributes",
-                "operationId": "attributes",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "entityId",
-                        "description": "ID of the entity that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/attribute"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Entity not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "entity"
-                ],
-                "summary": "Add a new  Entity attribute",
-                "description": "Add a new Entity attribute",
-                "operationId": "newAttribute",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "entityId",
-                        "description": "ID of the entity that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "Entity Attribute",
-                        "description": "Entity Attribute in JSON",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/attribute"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/entity"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID or Attribute Name supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Entity or Attribute not found",
                         "schema": {
                             "$ref": "#/definitions/error"
                         }
@@ -2152,201 +2460,25 @@
                 }
             }
         },
-        "/types/{typeId}/attributes/{attributeName}": {
-            "get": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Get an attribute in the Type",
-                "description": "Get an attribute in the Type",
-                "operationId": "getTypeAttribute",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "attributeName",
-                        "description": "Name of the attribute of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "Type Attribute",
-                        "description": "Updated Type Attribute in JSON",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/typeAttribute"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/typeAttribute"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Type not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Update an attribute in the Type",
-                "description": "Update an attribute in the Type",
-                "operationId": "updateTypeAttribute",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "attributeName",
-                        "description": "Name of the attribute of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "Type Attribute",
-                        "description": "Updated Type Attribute in JSON",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/typeAttribute"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/typeAttribute"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID or attributeName supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Type or Attribute not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Delete an attribute in the Type",
-                "description": "Delete an  attribute in the Type",
-                "operationId": "deleteTypeAttribute",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "typeId",
-                        "description": "ID of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "attributeName",
-                        "description": "Name of the attribute of the type that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Invalid ID or attributeName supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Type or Attribute not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/workspaces/{workspaceId}": {
+        "/workspaces": {
             "get": {
                 "tags": [
                     "workspace"
                 ],
-                "summary": "Get an Workspace by ID",
-                "description": "Get an Workspace by ID",
-                "operationId": "getWorkspace",
+                "summary": "Return the list of workspaces",
+                "description": "Return the list of workspaces",
+                "operationId": "workspaces",
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "successful operation",
                         "schema": {
-                            "$ref": "#/definitions/workspace"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Workspace not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/workspace"
+                            }
                         }
                     }
                 }
@@ -2355,24 +2487,17 @@
                 "tags": [
                     "workspace"
                 ],
-                "summary": "Update an Workspace by ID",
-                "description": "Update an Workspace by ID",
-                "operationId": "updateWorkspace",
+                "summary": "Create a new Workspace",
+                "description": "Create a new Workspace",
+                "operationId": "createWorkspace",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace that is fetched",
-                        "required": true,
-                        "type": "string"
-                    },
                     {
                         "in": "body",
                         "name": "Workspace",
-                        "description": "Updated Workspace in JSON",
+                        "description": "New Workspace in JSON",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/workspace"
@@ -2399,298 +2524,15 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/workspaces/{workspaceId}/permissions/{roleName}/principals/{principalId}": {
             "delete": {
                 "tags": [
                     "workspace"
                 ],
-                "summary": "Delete an Workspace by ID",
-                "description": "Delete an Workspace by ID",
-                "operationId": "deleteWorkspace",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspaceId",
-                        "description": "ID of the workspace that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Workspace not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/groups/{groupId}/members": {
-            "post": {
-                "tags": [
-                    "group"
-                ],
-                "summary": "Add a new Member to the Group with ID",
-                "description": "Add a new Member to the Group with ID",
-                "operationId": "addGroupMember",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "groupId",
-                        "description": "ID of the group that is fetched",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/group"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "Group not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/groups": {
-            "get": {
-                "tags": [
-                    "group"
-                ],
-                "summary": "Return the list of groups",
-                "description": "Return the list of groups",
-                "operationId": "groups",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/group"
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "group"
-                ],
-                "summary": "Create a new Group",
-                "description": "Create a new Group",
-                "operationId": "createGroup",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "Group",
-                        "description": "New Group in JSON",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/group"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/group"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        },
-                        "examples": {
-                            "application/json": {
-                                "status_code": 400,
-                                "detail": "Invalid ID supplied"
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Group not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        },
-                        "examples": {
-                            "application/json": {
-                                "status_code": 404,
-                                "detail": "Not Found"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/users": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Return the list of users",
-                "description": "Return the list of users",
-                "operationId": "users",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/user"
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Create a new User",
-                "description": "Create a new User",
-                "operationId": "createUser",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "User",
-                        "description": "New User in JSON",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    },
-                    "404": {
-                        "description": "User not found",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/types": {
-            "get": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Return the list of types",
-                "description": "Return the list of types",
-                "operationId": "types",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/link"
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "type"
-                ],
-                "summary": "Create a new Type",
-                "description": "Create a new Type",
-                "operationId": "createType",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "Type",
-                        "description": "New Type in JSON",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/type"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful create a Type",
-                        "schema": {
-                            "$ref": "#/definitions/type"
-                        }
-                    },
-                    "405": {
-                        "description": "Invalid input supplied",
-                        "schema": {
-                            "$ref": "#/definitions/error"
-                        }
-                    }
-                }
-            }
-        },
-        "/entities/{entityId}/permissions/{roleName}/principals/{principalId}": {
-            "delete": {
-                "tags": [
-                    "entity"
-                ],
-                "summary": "Remove a principal to Entity's role permissions",
-                "description": "Remove a  principal to Entity's role permissions",
+                "summary": "Remove a principal to Workspace's role permissions",
+                "description": "Remove a  principal to Workspace's role permissions",
                 "operationId": "removeRolePrincipals",
                 "produces": [
                     "application/json"
@@ -2698,22 +2540,22 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "entityId",
-                        "description": "ID of the entity that is fetched",
+                        "name": "workspaceId",
+                        "description": "ID of the workspace that is fetched",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "in": "path",
                         "name": "roleName",
-                        "description": "Name of the Entity's role",
+                        "description": "Name of the Workspace's role",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "in": "path",
                         "name": "principalId",
-                        "description": "ID of principal to remove from the Entity's role",
+                        "description": "ID of principal to remove from the Workspace's role",
                         "required": true,
                         "type": "string"
                     }
@@ -3024,12 +2866,6 @@
                         "$ref": "#/definitions/typeAttribute"
                     }
                 },
-                "templates": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/link"
-                    }
-                },
                 "versions": {
                     "type": "array",
                     "items": {
@@ -3057,10 +2893,20 @@
                 "options": {
                     "type": "object"
                 },
-                "helpEditors": {
+                "description": {
                     "type": "string"
+                },
+                "readOnly": {
+                    "type": "string"
+                },
+                "defaultValues": {
+                    "type": "array",
+                    "items": {}
                 }
-            }
+            },
+            "required": [
+                "name"
+            ]
         },
         "user": {
             "type": "object",

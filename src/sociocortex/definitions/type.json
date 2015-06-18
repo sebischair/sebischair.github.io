@@ -19,12 +19,6 @@
         "$ref": "#/definitions/typeAttribute"
       }
     },
-    "templates": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/link"
-      }
-    },
     "versions": {
       "type": "array",
       "items": {
