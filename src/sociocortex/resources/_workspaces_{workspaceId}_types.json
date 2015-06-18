@@ -1,7 +1,8 @@
 {
   "get": {
     "tags": [
-      "workspace"
+      "workspace",
+      "type"
     ],
     "summary": "Return all the types in the Workspace",
     "description": "Return all the types in the Workspace",

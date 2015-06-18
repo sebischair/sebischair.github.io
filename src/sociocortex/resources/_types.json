@@ -11,11 +11,11 @@
     ],
     "responses": {
       "200": {
-        "description": "successful operation",
+        "description": "Successful operation",
         "schema": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/type"
+            "$ref": "#/definitions/link"
           }
         }
       }
@@ -33,7 +33,7 @@
     ],
     "parameters": [
       {
-        "in": "body",
+        "in" : "body",
         "name": "Type",
         "description": "New Type in JSON",
         "required": true,
@@ -44,19 +44,13 @@
     ],
     "responses": {
       "200": {
-        "description": "Successful operation",
+        "description": "Successful create a Type",
         "schema": {
           "$ref": "#/definitions/type"
         }
       },
-      "400": {
-        "description": "Invalid ID supplied",
-        "schema": {
-          "$ref": "#/definitions/error"
-        }
-      },
-      "404": {
-        "description": "Type not found",
+      "405": {
+        "description": "Invalid input supplied",
         "schema": {
           "$ref": "#/definitions/error"
         }

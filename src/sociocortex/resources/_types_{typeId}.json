@@ -3,7 +3,7 @@
     "tags": [
       "type"
     ],
-    "summary": "Get an Type by ID",
+    "summary": "Get a Type by ID",
     "description": "Get an Type by ID",
     "operationId": "getType",
     "produces": [
@@ -39,7 +39,7 @@
       }
     }
   },
-  "post": {
+  "put": {
     "tags": [
       "type"
     ],

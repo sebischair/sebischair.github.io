@@ -7,6 +7,9 @@
     "name": {
       "type": "string"
     },
+    "workspace" : {
+      "$ref": "#/definitions/link"
+    },
     "namePlural": {
       "type": "string"
     },
@@ -22,11 +25,12 @@
         "$ref": "#/definitions/link"
       }
     },
-    "changeset": {
+    "versions": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/change"
       }
     }
-  }
+  },
+  "required": [ "name","workspace"]
 }
