@@ -75,7 +75,7 @@
         "description": "Updated Group in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/simpleGroup"
+          "$ref": "#/definitions/group"
         }
       }
     ],
@@ -83,7 +83,7 @@
       "200": {
         "description": "Successful operation",
         "schema": {
-          "$ref": "#/definitions/simpleGroup"
+          "$ref": "#/definitions/group"
         }
       },
       "400": {

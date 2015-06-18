@@ -63,7 +63,7 @@
         "description": "Updated User in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/simpleUser"
+          "$ref": "#/definitions/user"
         }
       }
     ],

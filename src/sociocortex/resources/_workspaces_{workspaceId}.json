@@ -63,7 +63,7 @@
         "description": "Updated Workspace in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/simpleWorkspace"
+          "$ref": "#/definitions/workspace"
         }
       }
     ],

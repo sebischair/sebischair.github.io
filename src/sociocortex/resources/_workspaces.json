@@ -15,7 +15,7 @@
         "schema": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/simpleWorkspace"
+            "$ref": "#/definitions/workspace"
           }
         }
       }
@@ -38,7 +38,7 @@
         "description": "New Workspace in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/simpleWorkspace"
+          "$ref": "#/definitions/workspace"
         }
       }
     ],
@@ -46,7 +46,7 @@
       "200": {
         "description": "Successful operation",
         "schema": {
-          "$ref": "#/definitions/simpleWorkspace"
+          "$ref": "#/definitions/workspace"
         }
       },
       "400": {

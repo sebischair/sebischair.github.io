@@ -63,7 +63,7 @@
         "description": "Updated Entity in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/simpleEntity"
+          "$ref": "#/definitions/entity"
         }
       }
     ],

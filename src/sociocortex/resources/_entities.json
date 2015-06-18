@@ -15,7 +15,7 @@
         "schema": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/simpleEntity"
+            "$ref": "#/definitions/entity"
           }
         }
       }
@@ -38,7 +38,7 @@
         "description": "New Entity in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/simpleEntity"
+          "$ref": "#/definitions/entity"
         }
       }
     ],

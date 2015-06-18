@@ -63,7 +63,7 @@
         "description": "Updated Type in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/simpleType"
+          "$ref": "#/definitions/type"
         }
       }
     ],
@@ -71,7 +71,7 @@
       "200": {
         "description": "Successful operation",
         "schema": {
-          "$ref": "#/definitions/simpleType"
+          "$ref": "#/definitions/type"
         }
       },
       "400": {
