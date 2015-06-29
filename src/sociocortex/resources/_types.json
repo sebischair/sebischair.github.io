@@ -20,5 +20,41 @@
         }
       }
     }
+  },
+  "post": {
+    "tags": [
+      "type"
+    ],
+    "summary": "Create a new type in the Workspace",
+    "description": "Create a new type in the Workspace",
+    "operationId": "createType",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "Type",
+        "description": "New Type in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/type"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/type"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
   }
 }

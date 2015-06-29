@@ -48,9 +48,9 @@
       "workspace",
       "type"
     ],
-    "summary": "Return all the types in the Workspace",
-    "description": "Return all the types in the Workspace",
-    "operationId": "workspaceTypes",
+    "summary": "Create a type in the Workspace",
+    "description": "Create a type in the Workspace",
+    "operationId": "createTypeInWorkspace",
     "produces": [
       "application/json"
     ],
