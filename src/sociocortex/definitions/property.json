@@ -10,8 +10,11 @@
     "multiplicity": {
       "type": "string"
     },
-    "type":{
+    "kind":{
       "type": "string"
+    },
+    "type":{
+      "$ref": "#/definitions/link"
     },
     "options": {
       "type": "object"
@@ -25,7 +28,13 @@
     "defaultValues": {
       "type": "array",
       "items": {}
+    },
+    "versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/change"
+      }
     }
   },
-  "required": [ "name"]
+  "required": [ "name","type"]
 }
