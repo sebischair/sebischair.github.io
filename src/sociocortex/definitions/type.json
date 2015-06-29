@@ -13,6 +13,9 @@
     "namePlural": {
       "type": "string"
     },
+    "icon": {
+      "type": "string"
+    },
     "allowFreeAttributes": {
       "type": "string"
     },
