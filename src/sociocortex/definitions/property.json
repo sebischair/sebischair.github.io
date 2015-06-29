@@ -1,13 +1,16 @@
 {
   "type": "object",
   "properties": {
+    "uid": {
+      "type": "string"
+    },
     "name": {
       "type": "string"
     },
     "multiplicity": {
       "type": "string"
     },
-    "type": {
+    "type":{
       "type": "string"
     },
     "options": {

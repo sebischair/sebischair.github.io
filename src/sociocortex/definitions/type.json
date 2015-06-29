@@ -13,11 +13,8 @@
     "namePlural": {
       "type": "string"
     },
-    "attributes": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/typeAttribute"
-      }
+    "allowFreeAttributes": {
+      "type": "string"
     },
     "versions": {
       "type": "array",
@@ -26,5 +23,5 @@
       }
     }
   },
-  "required": [ "name","workspace"]
+  "required": [ "name","namePlural"]
 }

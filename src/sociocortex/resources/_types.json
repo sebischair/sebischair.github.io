@@ -20,41 +20,5 @@
         }
       }
     }
-  },
-  "post": {
-    "tags": [
-      "type"
-    ],
-    "summary": "Create a new Type",
-    "description": "Create a new Type",
-    "operationId": "createType",
-    "produces": [
-      "application/json"
-    ],
-    "parameters": [
-      {
-        "in" : "body",
-        "name": "Type",
-        "description": "New Type in JSON",
-        "required": true,
-        "schema": {
-          "$ref": "#/definitions/type"
-        }
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Successful create a Type",
-        "schema": {
-          "$ref": "#/definitions/type"
-        }
-      },
-      "405": {
-        "description": "Invalid input supplied",
-        "schema": {
-          "$ref": "#/definitions/error"
-        }
-      }
-    }
   }
 }

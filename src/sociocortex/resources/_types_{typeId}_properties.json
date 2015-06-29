@@ -3,9 +3,9 @@
     "tags": [
       "type"
     ],
-    "summary": "Return all the attributes with Type",
-    "description": "Return all the attributes with Type",
-    "operationId": "typeAttributes",
+    "summary": "Return all the properties with Type",
+    "description": "Return all the properties with Type",
+    "operationId": "properties",
     "produces": [
       "application/json"
     ],
@@ -24,7 +24,7 @@
         "schema": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/typeAttribute"
+            "$ref": "#/definitions/property"
           }
         }
       },
@@ -46,9 +46,9 @@
     "tags": [
       "type"
     ],
-    "summary": "Create a new attribute in the Type",
-    "description": "Create a new attribute in the Type",
-    "operationId": "newTypeAttribute",
+    "summary": "Create a new property in the Type",
+    "description": "Create a new property in the Type",
+    "operationId": "newProperty",
     "produces": [
       "application/json"
     ],
@@ -66,7 +66,7 @@
         "description": "Updated Type Attribute in JSON",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/typeAttribute"
+          "$ref": "#/definitions/property"
         }
       }
     ],
@@ -76,7 +76,7 @@
         "schema": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/typeAttribute"
+            "$ref": "#/definitions/property"
           }
         }
       },

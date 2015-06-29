@@ -1,0 +1,128 @@
+{
+  "get": {
+    "tags": [
+      "type","property"
+    ],
+    "summary": "Get a Property by ID",
+    "description": "Get an Property by ID",
+    "operationId": "getProperty",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "propertyId",
+        "description": "ID of the property that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/property"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "put": {
+    "tags": [
+      "type","property"
+    ],
+    "summary": "Update an Property by ID",
+    "description": "Update an Property by ID",
+    "operationId": "updateProperty",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "propertyId",
+        "description": "ID of the property that is fetched",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "Type",
+        "description": "Updated property in JSON",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/property"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/property"
+        }
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "type","property"
+    ],
+    "summary": "Delete an Property by ID",
+    "description": "Delete an Property by ID",
+    "operationId": "deleteProperty",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "propertyId",
+        "description": "ID of the property that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid ID supplied",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "404": {
+        "description": "Type not found",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}
