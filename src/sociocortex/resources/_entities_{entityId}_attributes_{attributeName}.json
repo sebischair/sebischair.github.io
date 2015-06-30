@@ -25,6 +25,11 @@
         "type": "string"
       }
     ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
     "responses": {
       "200": {
         "description": "Successful operation",
@@ -79,6 +84,11 @@
         "schema": {
           "$ref": "#/definitions/attribute"
         }
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
       }
     ],
     "responses": {

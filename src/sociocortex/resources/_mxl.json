@@ -21,6 +21,11 @@
         ]
       }
     ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
     "responses": {
       "200": {
         "description": "Successful operation",
@@ -66,6 +71,11 @@
         "schema": {
           "$ref": "#/definitions/mxlBody"
         }
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
       }
     ],
     "responses": {

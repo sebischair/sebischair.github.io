@@ -9,6 +9,11 @@
     "produces": [
       "application/json"
     ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
     "responses": {
       "200": {
         "description": "successful operation",
@@ -40,6 +45,11 @@
         "schema": {
           "$ref": "#/definitions/entity"
         }
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
       }
     ],
     "responses": {

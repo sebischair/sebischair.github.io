@@ -18,6 +18,11 @@
         "type": "string"
       }
     ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
     "responses": {
       "200": {
         "description": "Successful operation",
@@ -79,6 +84,11 @@
         }
       }
     ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
     "responses": {
       "200": {
         "description": "Successful operation",
@@ -129,6 +139,11 @@
         "description": "ID of the group that is fetched",
         "required": true,
         "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
       }
     ],
     "responses": {

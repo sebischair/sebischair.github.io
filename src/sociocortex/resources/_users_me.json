@@ -9,6 +9,11 @@
     "produces": [
       "application/json"
     ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
     "responses": {
       "200": {
         "description": "Successful operation",

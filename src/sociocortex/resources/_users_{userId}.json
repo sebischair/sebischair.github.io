@@ -67,6 +67,11 @@
         }
       }
     ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
     "responses": {
       "200": {
         "description": "Successful operation",
@@ -105,6 +110,11 @@
         "description": "ID of the user that is fetched",
         "required": true,
         "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
       }
     ],
     "responses": {
