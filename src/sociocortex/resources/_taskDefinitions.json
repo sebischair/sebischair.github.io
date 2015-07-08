@@ -1,0 +1,68 @@
+{
+  "get": {
+    "tags": [
+      "taskDefinition"
+    ],
+    "summary": "Returns a list of task definitions",
+    "description": "Returns a list of task definitions",
+    "produces": [
+      "application/json"
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/taskDefinition"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "taskDefinition"
+    ],
+    "summary": "Creates a new task definition",
+    "description": "Creates a new task definition and returns it with the new id",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "taskDefinitionBody",
+        "description": "The standard body for task definitions",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/taskDefinition"
+        }
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/taskDefinition"
+        }
+      },
+      "400": {
+        "description": "Invalid body in request",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}
