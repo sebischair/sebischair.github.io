@@ -1,0 +1,122 @@
+{
+  "get": {
+    "tags": [
+      "stage"
+    ],
+    "summary": "Returns a specific stage",
+    "description": "Returns a specific stage",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "stageId",
+        "description": "ID of the stage that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/stage"
+        }
+      },
+      "400": {
+        "description": "the requested id cannot be found"
+      }
+    }
+  },
+  "put": {
+    "tags": [
+      "stage"
+    ],
+    "summary": "Updates a specific stage",
+    "description": "Updates a specific stage. The parameters \"uid\" and \"id\" in the body have no effect.",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "stageBody",
+        "description": "The standard body for stages",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/stage"
+        }
+      },
+      {
+        "in": "path",
+        "name": "stageId",
+        "description": "ID of the stage that is updated. The parameters \"uid\" and \"id\" in the body have no effect.",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/stage"
+        }
+      },
+      "400": {
+        "description": "Invalid body in request",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "stage"
+    ],
+    "summary": "Deletes a specific stage",
+    "description": "Deletes a specific stage",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "stageId",
+        "description": "ID of the stage that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation. Returns the deleted stage.",
+        "schema": {
+          "$ref": "#/definitions/stage"
+        }
+      },
+      "400": {
+        "description": "Invalid body in request",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

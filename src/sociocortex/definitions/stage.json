@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "uid": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "typeDefinition" : {
+      "$ref": "#/definitions/link"
+    },
+    "taskDefinitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/link"
+      }
+    }
+  },
+  "required": [ "name","typeDefinition"]
+}
