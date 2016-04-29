@@ -1,0 +1,88 @@
+{
+  "put": {
+    "tags": [
+      "stage",
+      "taskDefinition"
+    ],
+    "summary": "Adds the specified taskDefinition to the stage",
+    "description": "Adds the specified taskDefinition to the stage",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "stageId",
+        "description": "ID of the stage that is updated",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "taskDefinitionId",
+        "description": "ID of the task definition which is added to the stage",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid body in request",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "stage",
+      "taskDefinition"
+    ],
+    "summary": "Deletes a specific task definition from a stage",
+    "description": "Deletes a specific task definition from a stage",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "taskDefinitionId",
+        "description": "ID of the task definition that removed from the stage",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "path",
+        "name": "stageId",
+        "description": "ID of the stage that is manipulated",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      },
+      "400": {
+        "description": "Invalid body in request",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

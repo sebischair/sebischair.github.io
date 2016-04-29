@@ -1,0 +1,122 @@
+{
+  "get": {
+    "tags": [
+      "taskDefinition"
+    ],
+    "summary": "Returns a specific task definition",
+    "description": "Returns a specific task definition",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "taskDefinitionId",
+        "description": "ID of the task definition that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/taskDefinition"
+        }
+      },
+      "400": {
+        "description": "the requested id cannot be found"
+      }
+    }
+  },
+  "put": {
+    "tags": [
+      "taskDefinition"
+    ],
+    "summary": "Updates a specific task definition",
+    "description": "Updates a specific task definition. The parameters \"uid\" and \"id\" in the body have no effect.",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "taskDefinitionBody",
+        "description": "The standard body for task definitions",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/taskDefinition"
+        }
+      },
+      {
+        "in": "path",
+        "name": "taskDefinitionId",
+        "description": "ID of the task definition that is updated. The parameters \"uid\" and \"id\" in the body have no effect.",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/taskDefinition"
+        }
+      },
+      "400": {
+        "description": "Invalid body in request",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "taskDefinition"
+    ],
+    "summary": "Deletes a specific task definition",
+    "description": "Deletes a specific task definition",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "taskDefinitionId",
+        "description": "ID of the task definition that is fetched",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "schema": {
+          "$ref": "#/definitions/taskDefinition"
+        }
+      },
+      "400": {
+        "description": "Invalid body in request",
+        "schema": {
+          "$ref": "#/definitions/error"
+        }
+      }
+    }
+  }
+}

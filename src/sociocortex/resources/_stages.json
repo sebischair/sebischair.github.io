@@ -1,10 +1,10 @@
 {
   "get": {
     "tags": [
-      "taskDefinition"
+      "stage"
     ],
-    "summary": "Returns a list of task definitions",
-    "description": "Returns a list of task definitions",
+    "summary": "Returns a list of stages",
+    "description": "Returns a list of stages",
     "produces": [
       "application/json"
     ],
@@ -27,21 +27,21 @@
   },
   "post": {
     "tags": [
-      "taskDefinition"
+      "stage"
     ],
-    "summary": "Creates a new task definition",
-    "description": "Creates a new task definition and returns it with the new id",
+    "summary": "Creates a new stage",
+    "description": "Creates a new stage and returns it with the new id",
     "produces": [
       "application/json"
     ],
     "parameters": [
       {
         "in": "body",
-        "name": "taskDefinitionBody",
-        "description": "The standard body for task definitions",
+        "name": "stageBody",
+        "description": "The standard body for stages",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/taskDefinition"
+          "$ref": "#/definitions/stage"
         }
       }
     ],
@@ -54,7 +54,7 @@
       "200": {
         "description": "Successful operation",
         "schema": {
-          "$ref": "#/definitions/taskDefinition"
+          "$ref": "#/definitions/stage"
         }
       },
       "400": {
